@@ -1,34 +1,20 @@
 <template>
   <div class="page">
-    <text class="model">{{modelName}}</text>
+    <text class="model">Xiaomi Band11</text>
     <text class="tiny" @click="onTinyClick">灵儿万爆 lewb521</text>
   </div>
 </template>
 
 <script>
 import router from '@system.router'
-import device from '@system.device'
 
 const HIDDEN_TAP_COUNT = 10
 const TAP_RESET_MS = 2000
 
 export default {
   private: {
-    modelName: '小米手环',
     tapCount: 0,
     resetTimer: null
-  },
-  onInit() {
-    const that = this
-    device.getInfo({
-      success: function (ret) {
-        const model = ret && (ret.model || ret.product)
-        if (model) {
-          that.modelName = model
-        }
-      },
-      fail: function () {}
-    })
   },
   onTinyClick() {
     const that = this
@@ -72,7 +58,7 @@ export default {
 .tiny {
   position: absolute;
   left: 0px;
-  top: 285px;
+  top: 484px;
   width: 212px;
   height: 36px;
   font-size: 22px;
