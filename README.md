@@ -1,78 +1,57 @@
-## 开源许可
+# 型号查看（伪装电子书阅读器）
 
-项目使用 AGPL-3.0 许可协议，要求分发和修改的同时也公开源码，且使用相同的许可协议。
+一款小米手环（Vela 快应用）应用。**表面是一个「型号查看」工具，实际内嵌了一个完整的电子书阅读器**，可通过安卓同步器推送电子书。
 
-## 提示
+## 伪装说明
 
-项目已转交至[爅峫](https://github.com/youshen2)维护，本仓库仅作留档，若要使用，推荐前往下方的**衍生项目-弦电子书**了解详情
+| 项目 | 说明 |
+| --- | --- |
+| 表面界面 | 黑底，中间**白色粗体**显示手环型号，下方一行小字 `灵儿万爆 lewb521` |
+| 进入内核 | 对下方小字**连续点击 10 次**（2 秒内不间断）进入电子书内核 |
+| 退出内核 | 在书架页**侧滑一次**即彻底退出（不会退回伪装页） |
 
-## 衍生项目
+- 手环型号通过 `@system.device.getInfo()` 读取，读取失败时回退显示「小米手环」。
 
-### 弦电子书
+## 功能（电子书内核）
 
-#### 手环端
+- 书架：展示已同步的 txt 电子书
+- 阅读：翻页、字号 / 亮度 / 边距调节、进度记忆
+- 更多设置：清空书架、字体设置等
 
-基于喵喵电子书深度魔改（指重写了>70%的代码），支持更多特性：
+## 与安卓同步器配合
 
-- 更好的滑动式无缝加载阅读器
-- 章节系统
-- 屏幕常亮
-- 三击屏幕退出小程序
-- 书签功能
-- 屏幕亮度调节
-- 书籍封面
-- 章节阅读进度条
-- 屏幕垂直边距
-- 电量显示（For RW）
-- 书籍分类
-- 环间电子书怀旧模式
-- 阅读时长记录
+1. 手机上安装同步器 [com.bandbbs.ebook-android](https://github.com/lewb521/com.bandbbs.ebook-android)。
+2. 手环安装本应用，并保持与手机在小程序互联状态下连接。
+3. 同步器选择 txt 电子书推送，通过 `pages/push` 路由 + 小米互联握手传输到手环。
 
-仓库地址：https://github.com/youshen2/com.bandbbs.ebook
+## 关键文件
 
-#### 手机端
+| 路径 | 作用 |
+| --- | --- |
+| `src/pages/model/` | 伪装入口页（型号查看，含连点 10 次触发逻辑） |
+| `src/pages/index/` | 电子书内核书架页（侧滑彻底退出逻辑在此） |
+| `src/pages/push/` | 同步推送接收页 |
+| `src/app.ux` | 应用入口，注册互联握手监听 |
 
-使用 Kotlin+Compose+Material，基于喵喵电子书同步器重写的安卓客户端。
-支持导入更多格式的书籍、分类系统、章节系统等。
+## 安装包
 
-仓库地址：https://github.com/youshen2/com.bandbbs.ebook-android
-
-## 相关资源
-
-### 喵喵电子书多端设计稿
-
-https://mastergo.com/goto/KWzbQtxB?file=165290124574010
-
-### 喵喵电子书安卓客户端
-
-https://github.com/BandBBS-Vela-Dev/com.bandbbs.ebook-android
-
-### 喵喵电子书 AstroBox 插件端
-
-https://github.com/leset0ng/com.bandbbs.ebook-AstroBox
+- `release/com.bandbbs.ebook.debug.3.1.rpk`：调试签名包，配合 AIoT 调试器侧载。
+- 正式侧载包请在本地登录小米开发者账号后执行 `npm run release` 生成。
 
 ## 快速上手
 
-### 1. 开发
-
-```
-npm install
-npm run start
-```
-
-### 2. 构建
-
-```
-npm run build
-npm run release
+```bash
+npm install      # 安装依赖
+npm run build    # 编译生成 debug rpk（dist/）
+npm run release  # 生成 release 签名包（需先 npx aiot login）
+npm run start    # 开发 / 热更新
+npm run watch    # 调试
 ```
 
-### 3. 调试
+## 开源许可
 
-```
-npm run watch
-```
+AGPL-3.0，详见 [LICENSE](./LICENSE)。
 
-## 了解更多
+## 上游出处
 
-你可以通过小米的[官方文档](https://iot.mi.com/vela/quickapp)熟悉和了解快应用。
+本项目基于 [BandBBS-Vela-Dev/com.bandbbs.ebook](https://github.com/BandBBS-Vela-Dev/com.bandbbs.ebook)（喵喵电子书）改造。
