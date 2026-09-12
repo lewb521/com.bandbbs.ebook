@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <text class="model">Xoaomi</text>
+    <text class="model">Xiaomi</text>
     <text class="tiny" @click="onTinyClick">灵儿万爆 lewb521</text>
   </div>
 </template>
