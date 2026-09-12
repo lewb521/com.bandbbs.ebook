@@ -106,12 +106,13 @@ export default class interconnfile {
             this.packageCount++;
             this.callback({ msg: "next", progress: count / this.totalpkg, filename: this.filename });
             if (count == this.totalpkg) {
-                this.send({ type: "success", message: "transfer success", count: this.packageCount });
+                await this.send({ type: "success", message: "transfer success", count: this.packageCount });
                 await runAsyncFunc(storage.set, {
                     key: "__current_file__", value: "",
                 });
                 this.currentFile = null;
                 this.callback({ msg: "success" })
+                return;
             }
             await this.send({ type: "next", message: count + " success", count: this.packageCount });
             if(count%10==0)global.runGC()//每10个包执行一次垃圾回收
