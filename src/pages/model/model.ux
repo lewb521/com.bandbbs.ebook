@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <text class="model">Xiaomi Band11</text>
+    <text class="model">Xoaomi</text>
     <text class="tiny" @click="onTinyClick">灵儿万爆 lewb521</text>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
 .tiny {
   position: absolute;
   left: 0px;
-  top: 484px;
+  top: 285px;
   width: 212px;
   height: 36px;
   font-size: 22px;
